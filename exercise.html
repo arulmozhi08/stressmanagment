@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercise Suggestions</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      animation: slideIn 1s ease-in-out, fadeIn 1s ease-in-out;
+    }
+
+    .exercise-suggestion {
+      margin-top: 30px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      animation: pulse 1s infinite alternate, colorChange 2s infinite alternate;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      animation: none; /* Disable pulse animation on hover */
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+      }
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes colorChange {
+      0% {
+        color: white;
+      }
+      50% {
+        color: #ffcc00;
+      }
+      100% {
+        color: white;
+      }
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 24px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Exercise Suggestions</h1>
+    <div class="exercise-suggestion" id="exerciseResult"></div>
+    <button onclick="goBack()">Go Back</button>
+  </div>
+
+  <script>
+    function getRandomImage() {
+      const images = [
+        'https://res.cloudinary.com/ekincare/image/upload/v1661780677/ac6yr6mfjsdc4d4yvetj.png',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuFq3YaDcU9ARzFWRcGIRXOzRb6TFAsIKF44jafLYNw&s',
+        'https://thumbs.dreamstime.com/b/patient-examination-medicine-coronavirus-healthcare-concept-woman-mother-child-kid-daughter-medical-face-masks-talking-to-man-186348226.jpg'
+      ];
+
+      const randomIndex = Math.floor(Math.random() * images.length);
+      return images[randomIndex];
+    }
+
+    function setRandomBackground() {
+      const randomImage = getRandomImage();
+      document.body.style.backgroundImage = `url('${randomImage}')`;
+    }
+
+    setRandomBackground();
+
+    function displayExerciseSuggestions() {
+      const cortisolLevel = sessionStorage.getItem('cortisolLevel');
+      let exercise = '';
+
+      if (cortisolLevel < 5) {
+        exercise = 'Your stress level is low. No need to worry.';
+      } else if (cortisolLevel < 10) {
+        exercise = 'Go for a brisk walk for 10 minutes.';
+      } else if (cortisolLevel <= 20) {
+        exercise = 'Keep a positive attitude. Try to stay calm and do any physical activity.';
+      } else if (cortisolLevel <= 30) {
+        exercise = 'Practice deep breathing exercises for 10 minutes. Spend enough time with those you love.';
+      } else {
+        exercise = 'Your stress level is high. Please consult a doctor ASAP!';
+      }
+
+      const exerciseResult = document.getElementById('exerciseResult');
+      exerciseResult.innerHTML = `<p><strong>Suggested Exercise:</strong> ${exercise}</p>`;
+    }
+
+    displayExerciseSuggestions();
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
+
+
